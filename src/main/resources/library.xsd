@@ -15,22 +15,50 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
-	<xs:element name = "getAuthorsByNameRequest">
+
+	<xs:element name="getAuthorsByNameRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="name" type="xs:string"/>
+				<xs:element name="name" type="xs:string" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
+
 	<xs:element name="getAuthorsByNameResponse">
-    <xs:complexType>
-        <xs:sequence>
-            <xs:element name="author" type="tns:authorDto" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
-</xs:element>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="author" type="tns:authorDto" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getAllAuthorSRequest"></xs:element>
+
+
+	<xs:element name="getAllAuthorsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="author" type="tns:authorDto" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="deleteAuthorRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="deleteAuthorResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="messagge" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
 	<xs:element name="getCityRequest">
 		<xs:complexType>
@@ -39,14 +67,47 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
-	<xs:element name = "getCityResponse">
+
+	<xs:element name="getCityResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name = "city" type="tns:cityDto" />
+				<xs:element name="city" type="tns:cityDto" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
+	<xs:element name="createAuthorRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="createAuthorResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="author" type="tns:authorDto" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	    <xs:element name="updateAuthorRequest">
+        <xs:complexType>
+            <xs:sequence>
+               <xs:element name="id" type="xs:int"/>
+               <xs:element name="name" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="updateAuthorResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="author" type="tns:authorDto" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
 
 	<xs:complexType name="authorDto">

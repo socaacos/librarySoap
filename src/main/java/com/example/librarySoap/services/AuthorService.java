@@ -62,7 +62,6 @@ public class AuthorService {
 		for (Author author : authors) {
 			authorDtos.add(modelMapper.map(author, AuthorDto.class));
 		}
-		System.out.println(authorDtos.size());
 		return authorDtos;
 	}
 	

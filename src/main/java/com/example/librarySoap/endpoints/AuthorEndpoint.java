@@ -12,10 +12,17 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import com.example.librarySoap.services.AuthorService;
 
 import io.spring.guides.gs_producing_web_service.AuthorDto;
+import io.spring.guides.gs_producing_web_service.CreateAuthorRequest;
+import io.spring.guides.gs_producing_web_service.CreateAuthorResponse;
+import io.spring.guides.gs_producing_web_service.DeleteAuthorRequest;
+import io.spring.guides.gs_producing_web_service.DeleteAuthorResponse;
+import io.spring.guides.gs_producing_web_service.GetAllAuthorsResponse;
 import io.spring.guides.gs_producing_web_service.GetAuthorsByNameRequest;
 import io.spring.guides.gs_producing_web_service.GetAuthorsByNameResponse;
 import io.spring.guides.gs_producing_web_service.GetAuthorsRequest;
 import io.spring.guides.gs_producing_web_service.GetAuthorsResponse;
+import io.spring.guides.gs_producing_web_service.UpdateAuthorRequest;
+import io.spring.guides.gs_producing_web_service.UpdateAuthorResponse;
 
 @Endpoint
 public class AuthorEndpoint {
@@ -63,5 +70,57 @@ public class AuthorEndpoint {
 		return authors;
 		
 	}
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllAuthorSRequest")
+	@ResponsePayload
+	public GetAllAuthorsResponse getAllAuthors() {
+		List<AuthorDto> response = (List<AuthorDto>) authorService.getAll();
+		GetAllAuthorsResponse authors = new GetAllAuthorsResponse();
+		for (AuthorDto authorDto : response) {
+			authors.getAuthor().add(authorDto);
+		}		
+		return authors;		
+	}
+	
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteAuthorRequest")
+	@ResponsePayload
+	public DeleteAuthorResponse delete(@RequestPayload DeleteAuthorRequest request) {
+		int id = request.getId();
+		authorService.delete(id);
+		DeleteAuthorResponse res = new DeleteAuthorResponse();
+		res.setMessagge("Deleted successfuly!");
+		return res;
+		
+	}
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "createAuthorRequest")
+	@ResponsePayload
+	public CreateAuthorResponse delete(@RequestPayload CreateAuthorRequest request) {
+		String name = request.getName();
+		AuthorDto author = new AuthorDto();
+		author.setName(name);
+		
+		AuthorDto newAuthor = authorService.create(author);
+		CreateAuthorResponse res = modelMapper.map(newAuthor, CreateAuthorResponse.class);
+		return res;
+	}
+	
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateAuthorRequest")
+	@ResponsePayload
+	public UpdateAuthorResponse update(@RequestPayload UpdateAuthorRequest request) {
+		int id = request.getId();
+		String name = request.getName();
+		AuthorDto author = new AuthorDto();
+		author.setName(name);
+		
+		
+		AuthorDto newAuthor = authorService.update(id, author);
+		UpdateAuthorResponse res = modelMapper.map(newAuthor, UpdateAuthorResponse.class);
+		return res;
+	}
+	
+	
 
 }
